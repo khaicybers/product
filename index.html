@@ -63,7 +63,7 @@
             background-color: #e5e7eb;
             border-radius: 3px;
             overflow: hidden;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
         .progress {
             height: 100%;
@@ -73,11 +73,9 @@
         .file-info {
             display: flex;
             align-items: center;
-            margin-top: 1rem;
             padding: 0.5rem;
             background-color: #f3f4f6;
             border-radius: 0.375rem;
-            width: 100%;
         }
         .file-info i {
             margin-right: 0.5rem;
@@ -189,18 +187,11 @@
                 </label>
                 <div class="file-upload" id="dropArea">
                     <i class="fas fa-cloud-upload-alt text-4xl text-primary-500 mb-3"></i>
-                    <h3 class="text-lg font-medium text-gray-700 mb-1">Kéo thả hoặc click để chọn file</h3>
-                    <p class="text-xs text-gray-500 mt-3">Hỗ trợ: JPG, PNG, GIF, MP4 (tối đa 25MB)</p>
-                    <input type="file" id="file" accept="image/*,video/*" class="">
+                    <h3 class="text-lg font-medium text-gray-700 mb-1">Kéo thả hoặc click để chọn nhiều file</h3>
+                    <p class="text-xs text-gray-500 mt-3">Hỗ trợ: JPG, PNG, GIF, MP4 (tối đa 25MB/file)</p>
+                    <input type="file" id="file" accept="image/*,video/*" multiple>
                 </div>
-                <div class="file-info hidden" id="fileInfo">
-                    <i class="fas fa-file"></i>
-                    <span id="fileName"></span>
-                    <span class="ml-auto text-xs" id="fileSize"></span>
-                    <button class="ml-2 text-red-500 hover:text-red-700" id="removeFile">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+                <div id="fileList" class="mt-2 space-y-2"></div>
             </div>
             
             <!-- Upload Button -->
@@ -221,41 +212,7 @@
                         <i class="fas fa-check-circle text-green-500 mr-2"></i>
                         <h3 class="font-medium text-green-800">Upload thành công!</h3>
                     </div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Link file:</label>
-                    <div class="flex">
-                        <input 
-                            type="text" 
-                            id="fileLink" 
-                            class="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none bg-gray-50" 
-                            readonly
-                        >
-                        <button 
-                            id="copyBtn" 
-                            class="px-4 py-2 bg-secondary-500 text-white rounded-r-lg hover:bg-secondary-600 transition flex items-center"
-                            title="Copy link"
-                        >
-                            <i class="fas fa-copy mr-1"></i>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <div class="mt-3 flex space-x-2">
-                        <a 
-                            id="viewBtn" 
-                            target="_blank" 
-                            class="px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition flex items-center"
-                        >
-                            <i class="fas fa-external-link-alt mr-1"></i>
-                            Xem file
-                        </a>
-                        <a 
-                            id="rawBtn" 
-                            target="_blank" 
-                            class="px-3 py-1.5 text-sm bg-gray-50 text-gray-600 rounded hover:bg-gray-100 transition flex items-center"
-                        >
-                            <i class="fas fa-code mr-1"></i>
-                            Raw link
-                        </a>
-                    </div>
+                    <div id="fileLinks" class="space-y-2"></div>
                 </div>
             </div>
         </div>
@@ -276,15 +233,9 @@
         const tokenInput = document.getElementById('token');
         const repoInput = document.getElementById('repo');
         const resultDiv = document.getElementById('result');
-        const fileLinkInput = document.getElementById('fileLink');
-        const copyBtn = document.getElementById('copyBtn');
-        const viewBtn = document.getElementById('viewBtn');
-        const rawBtn = document.getElementById('rawBtn');
+        const fileList = document.getElementById('fileList');
+        const fileLinks = document.getElementById('fileLinks');
         const dropArea = document.getElementById('dropArea');
-        const fileInfo = document.getElementById('fileInfo');
-        const fileName = document.getElementById('fileName');
-        const fileSize = document.getElementById('fileSize');
-        const removeFileBtn = document.getElementById('removeFile');
         const uploadText = document.getElementById('uploadText');
         const uploadIcon = document.getElementById('uploadIcon');
         const uploadSpinner = document.getElementById('uploadSpinner');
@@ -292,14 +243,12 @@
         const toast = document.querySelector('.toast');
 
         // Variables
-        let selectedFile = null;
+        let selectedFiles = [];
         let isTokenVisible = false;
 
         // Event Listeners
         fileInput.addEventListener('change', handleFileSelect);
         uploadBtn.addEventListener('click', uploadFile);
-        copyBtn.addEventListener('click', copyLink);
-        removeFileBtn.addEventListener('click', resetFile);
         toggleTokenBtn.addEventListener('click', toggleTokenVisibility);
         
         // Drag and drop events
@@ -332,50 +281,71 @@
         }
 
         function handleFileSelect(e) {
-            const file = e.target.files[0];
-            processFile(file);
+            const files = Array.from(e.target.files);
+            processFiles(files);
         }
 
         function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const file = dt.files[0];
-            processFile(file);
+            const files = Array.from(e.dataTransfer.files);
+            processFiles(files);
         }
 
-        function processFile(file) {
-            if (!file) return;
-            
-            // Check file type
-            const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4'];
-            if (!validTypes.includes(file.type)) {
-                showToast('Chỉ hỗ trợ file ảnh (JPG, PNG, GIF) hoặc video (MP4)', 'error');
-                return;
-            }
-            
-            // Check file size (25MB max)
-            if (file.size > 25 * 1024 * 1024) {
-                showToast('File quá lớn! Giới hạn là 25MB', 'error');
-                return;
-            }
-            
-            selectedFile = file;
-            
-            // Update UI
-            fileName.textContent = file.name;
-            fileSize.textContent = formatFileSize(file.size);
-            fileInfo.classList.remove('hidden');
-            dropArea.classList.add('active');
-            
+        function processFiles(files) {
+            selectedFiles = [];
+            fileList.innerHTML = ''; // Clear previous file list
+
+            files.forEach(file => {
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4'];
+                if (!validTypes.includes(file.type)) {
+                    showToast(`File ${file.name} không được hỗ trợ!`, 'error');
+                    return;
+                }
+
+                // Check file size (25MB max)
+                if (file.size > 25 * 1024 * 1024) {
+                    showToast(`File ${file.name} quá lớn! Giới hạn là 25MB`, 'error');
+                    return;
+                }
+
+                selectedFiles.push(file);
+                displayFile(file);
+            });
+
             // Enable upload button if all fields are filled
             checkFormCompletion();
         }
 
-        function resetFile() {
-            selectedFile = null;
-            fileInput.value = '';
-            fileInfo.classList.add('hidden');
-            dropArea.classList.remove('active');
-            uploadBtn.disabled = true;
+        function displayFile(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-info flex items-center p-2 bg-gray-100 rounded-lg';
+            fileItem.innerHTML = `
+                <i class="fas fa-file mr-2 text-gray-500"></i>
+                <span class="flex-1 text-sm text-gray-600 truncate">${file.name}</span>
+                <span class="text-xs text-gray-500">${formatFileSize(file.size)}</span>
+                <button class="ml-2 text-red-500 hover:text-red-700 remove-file" data-name="${file.name}">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="progress-bar hidden">
+                    <div class="progress" style="width: 0%"></div>
+                </div>
+            `;
+            fileList.appendChild(fileItem);
+
+            // Add remove file event
+            fileItem.querySelector('.remove-file').addEventListener('click', () => removeFile(file.name));
+        }
+
+        function removeFile(fileName) {
+            selectedFiles = selectedFiles.filter(file => file.name !== fileName);
+            updateFileList();
+            checkFormCompletion();
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach(file => displayFile(file));
+            dropArea.classList.toggle('active', selectedFiles.length > 0);
         }
 
         function formatFileSize(bytes) {
@@ -387,19 +357,15 @@
         }
 
         function checkFormCompletion() {
-            if (tokenInput.value.trim() && repoInput.value.trim() && selectedFile) {
-                uploadBtn.disabled = false;
-            } else {
-                uploadBtn.disabled = true;
-            }
+            uploadBtn.disabled = !(tokenInput.value.trim() && repoInput.value.trim() && selectedFiles.length > 0);
         }
 
         async function uploadFile() {
             const token = tokenInput.value.trim();
             const repo = repoInput.value.trim();
-            
-            if (!token || !repo || !selectedFile) {
-                showToast('Vui lòng nhập đầy đủ token, repo và chọn file!', 'error');
+
+            if (!token || !repo || selectedFiles.length === 0) {
+                showToast('Vui lòng nhập đầy đủ token, repo và chọn ít nhất một file!', 'error');
                 return;
             }
 
@@ -409,83 +375,109 @@
             uploadIcon.classList.add('hidden');
             uploadSpinner.classList.remove('hidden');
 
+            fileLinks.innerHTML = ''; // Clear previous results
+            resultDiv.classList.add('hidden');
+
             try {
-                // Read file as base64
-                const reader = new FileReader();
-                reader.readAsDataURL(selectedFile);
-                
-                const content = await new Promise((resolve) => {
-                    reader.onload = () => {
-                        resolve(reader.result.split(',')[1]);
-                    };
-                });
+                // Upload files sequentially
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    const fileItem = fileList.children[i];
+                    const progressBar = fileItem.querySelector('.progress-bar');
+                    const progress = fileItem.querySelector('.progress');
+                    progressBar.classList.remove('hidden');
 
-                // Create folder name in DD-MM-YYYY format
-                const now = new Date();
-                const day = String(now.getDate()).padStart(2, '0');
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const year = now.getFullYear();
-                const folderName = `${day}-${month}-${year}`;
+                    // Simulate progress
+                    progress.style.width = '10%';
 
-                // Create unique filename with timestamp
-                const timestamp = now.toISOString().replace(/[:.]/g, '-');
-                const fileName = `${timestamp}_${selectedFile.name}`;
-                const filePath = `${folderName}/${fileName}`;
+                    // Read file as base64
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    const content = await new Promise(resolve => {
+                        reader.onload = () => resolve(reader.result.split(',')[1]);
+                    });
 
-                // Send request to GitHub API
-                const response = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: `Upload ${fileName} to ${folderName}`,
-                        content: content,
-                    }),
-                });
+                    // Create folder name in DD-MM-YYYY format
+                    const now = new Date();
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = now.getFullYear();
+                    const folderName = `${day}-${month}-${year}`;
 
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Lỗi khi upload file!');
+                    // Create unique filename with timestamp
+                    const timestamp = now.toISOString().replace(/[:.]/g, '-');
+                    const fileName = `${timestamp}_${file.name}`;
+                    const filePath = `${folderName}/${fileName}`;
+
+                    // Update progress
+                    progress.style.width = '50%';
+
+                    // Send request to GitHub API
+                    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: `Upload ${fileName} to ${folderName}`,
+                            content: content,
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(`Lỗi khi upload ${file.name}: ${error.message}`);
+                    }
+
+                    const data = await response.json();
+                    const fileUrl = data.content.download_url;
+                    const rawUrl = fileUrl.replace('/repos/', '/').replace('/contents/', '/raw/');
+
+                    // Update progress
+                    progress.style.width = '100%';
+
+                    // Display result
+                    const linkItem = document.createElement('div');
+                    linkItem.className = 'flex items-center space-x-2';
+                    linkItem.innerHTML = `
+                        <input type="text" value="${fileUrl}" class="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 bg-gray-50" readonly>
+                        <button class="copy-btn px-4 py-2 bg-secondary-500 text-white rounded-r-lg hover:bg-secondary-600 flex items-center" data-url="${fileUrl}">
+                            <i class="fas fa-copy mr-1"></i> Copy
+                        </button>
+                        <a href="${fileUrl}" target="_blank" class="px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 flex items-center">
+                            <i class="fas fa-external-link-alt mr-1"></i> Xem
+                        </a>
+                        <a href="${rawUrl}" target="_blank" class="px-3 py-1.5 text-sm bg-gray-50 text-gray-600 rounded hover:bg-gray-100 flex items-center">
+                            <i class="fas fa-code mr-1"></i> Raw
+                        </a>
+                    `;
+                    fileLinks.appendChild(linkItem);
+
+                    // Add copy event
+                    linkItem.querySelector('.copy-btn').addEventListener('click', (e) => {
+                        const url = e.target.dataset.url;
+                        navigator.clipboard.writeText(url);
+                        showToast(`Đã copy link ${file.name}!`);
+                    });
                 }
 
-                const data = await response.json();
-                const fileUrl = data.content.download_url;
-                const rawUrl = fileUrl.replace('/repos/', '/').replace('/contents/', '/raw/');
-
-                // Update UI with result
-                fileLinkInput.value = fileUrl;
-                viewBtn.href = fileUrl;
-                rawBtn.href = rawUrl;
+                // Update UI after all uploads
                 resultDiv.classList.remove('hidden');
-                
-                // Reset upload button
                 uploadText.textContent = 'Upload thành công!';
                 uploadSpinner.classList.add('hidden');
                 uploadIcon.classList.remove('hidden');
                 uploadIcon.className = 'fas fa-check-circle ml-2';
-                
-                showToast('Upload thành công!');
-                
-                // Scroll to result
+                showToast('Tất cả file đã upload thành công!');
                 resultDiv.scrollIntoView({ behavior: 'smooth' });
             } catch (error) {
                 console.error('Upload error:', error);
-                showToast(`Lỗi: ${error.message}`, 'error');
-                
-                // Reset upload button
+                showToast(error.message, 'error');
                 uploadText.textContent = 'Upload';
                 uploadSpinner.classList.add('hidden');
                 uploadIcon.classList.remove('hidden');
                 uploadBtn.disabled = false;
             }
-        }
-
-        function copyLink() {
-            fileLinkInput.select();
-            document.execCommand('copy');
-            showToast('Đã copy link!');
         }
 
         function showToast(message, type = 'success') {
