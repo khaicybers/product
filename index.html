@@ -273,72 +273,76 @@
     
     <div class="container">
         <!-- Introduction Section -->
-    <div class="intro-section bg-white shadow-xl flex flex-col items-center transition-all duration-300 hover:shadow-2xl">
-        <div class="bg-gradient-to-r from-primary-500 to-primary-600 p-4 rounded-full mb-4">
-            <i class="fas fa-user-circle text-4xl text-white"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">Giới thiệu</h2>
-        <p class="text-gray-600 text-center mb-4 px-4">Xin chào, tôi là khair, một nhà phát triển đam mê công nghệ và sáng tạo nội dung số.</p>
-        <div class="text-gray-600 space-y-2 px-4">
-            <p><i class="fas fa-briefcase mr-2 text-primary-500"></i> Nhà phát triển phần mềm</p>
-            <p><i class="fas fa-envelope mr-2 text-primary-500"></i> khaicybers@gmail.com</p>
-        </div>
-        <div class="mt-4 flex space-x-4 mb-4">
-            <a href="https://github.com/khaicybers" target="_blank" class="text-primary-500 hover:text-primary-600">
-                <i class="fab fa-github text-2xl"></i>
-            </a>
-        </div>
-        <hr>
-        <h1><p>Donnate</p></h1>
-        <div class="container" style="display: flex; flex-direction: row; justify-content: center; align-items: center; text-align: center; gap: 20px; padding: 20px;">
-            <!-- Phần copy STK (bên trái) -->
-            <div class="stk-copy mt-4" style="flex: 1;">
-                <div class="space-y-3">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-center">
-                    <i class="fas fa-university mr-2 text-primary-500"></i>
-                    Ngân hàng
-                </label>
-                <input 
-                    type="text" 
-                    class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-center text-gray-700" 
-                    value="MBBank" 
-                    readonly
-                >
+        <div class="intro-section bg-white shadow-xl flex flex-col items-center transition-all duration-300 hover:shadow-2xl">
+            <div class="bg-gradient-to-r from-primary-500 to-primary-600 p-4 rounded-full mb-4">
+                <i class="fas fa-user-circle text-4xl text-white"></i>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-center">
-                    <i class="fas fa-credit-card mr-2 text-primary-500"></i>
-                    Số tài khoản
-                </label>
-                <div class="relative flex items-center justify-center">
-                    <input 
-                        type="text" 
-                        id="stk" 
-                        class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-center text-gray-700" 
-                        value="432123456" 
-                        readonly
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Giới thiệu</h2>
+            <p class="text-gray-600 text-center mb-4 px-4">Xin chào, tôi là khair, một nhà phát triển đam mê công nghệ và sáng tạo nội dung số.</p>
+            <div class="text-gray-600 space-y-2 px-4">
+                <p><i class="fas fa-briefcase mr-2 text-primary-500"></i> Nhà phát triển phần mềm</p>
+                <p><i class="fas fa-envelope mr-2 text-primary-500"></i> khaicybers@gmail.com</p>
+            </div>
+            <div class="mt-4 flex space-x-4 mb-4">
+                <a href="https://github.com/khaicybers" target="_blank" class="text-primary-500 hover:text-primary-600">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+            </div>
+            <hr>
+            <h1><p>Donnate</p></h1>
+            <div class="container flex flex-row justify-center items-center text-center gap-6 p-6">
+                <!-- Phần copy STK (bên trái) -->
+                <div class="stk-copy bg-white rounded-lg shadow-md p-6 flex-1 max-w-md transition-all duration-300 hover:shadow-lg">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Thông tin donate</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-center">
+                                <i class="fas fa-university mr-2 text-primary-500"></i>
+                                Ngân hàng
+                            </label>
+                            <input 
+                                type="text" 
+                                class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-center text-gray-700" 
+                                value="MBBank" 
+                                readonly
+                            >
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-center">
+                                <i class="fas fa-credit-card mr-2 text-primary-500"></i>
+                                Số tài khoản
+                            </label>
+                            <div class="relative flex items-center justify-center">
+                                <input 
+                                    type="text" 
+                                    id="stk" 
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-center text-gray-700" 
+                                    value="432123456" 
+                                    readonly
+                                >
+                                <button 
+                                    id="copySTK" 
+                                    class="ml-2 px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition duration-200 flex items-center"
+                                    onclick="copySTK()"
+                                    title="Sao chép STK"
+                                >
+                                    <i class="fas fa-copy mr-1"></i> Sao chép
+                                </button>
+                            </div>
+                        </div>
+                        <p id="copyMessage" class="text-sm text-green-600 mt-2 hidden">Đã sao chép số tài khoản!</p>
+                    </div>
+                </div>
+                <!-- Ảnh donate (bên phải) -->
+                <div class="donate-image flex-1 flex justify-center">
+                    <img 
+                        src="https://raw.githubusercontent.com/khaicybers/product/main/04-09-2025/2025-09-04T12-14-34-880Z_z6977106704336_5b6ad54ce2b57454b4cba1acf069709b.jpg" 
+                        alt="Donate QR" 
+                        class="w-full max-w-xs rounded-lg shadow-md transition-all duration-300 hover:shadow-lg"
                     >
-                    <button 
-                        id="copySTK" 
-                        class="ml-2 px-7 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition duration-200 flex items-center"
-                        onclick="copySTK()"
-                        title="Sao chép STK"
-                        style="height: 41px;"
-                    >
-                        <i class="fas fa-copy mr-1"></i>
-                    </button>
                 </div>
             </div>
-            <p id="copyMessage" class="text-sm text-green-600 mt-2 hidden">Đã sao chép số tài khoản!</p>
         </div>
-            </div>
-            <!-- Ảnh donate (bên phải) -->
-            <div class="donate-image" style="flex: 1;">
-                <img src="https://raw.githubusercontent.com/khaicybers/product/main/04-09-2025/2025-09-04T12-14-34-880Z_z6977106704336_5b6ad54ce2b57454b4cba1acf069709b.jpg" alt="Donate QR" style="width: 100%; max-width: 300px;">
-            </div>
-        </div>
-    </div>
 
         <!-- Uploader Section -->
         <div class="uploader-section bg-white shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
@@ -366,7 +370,7 @@
                         <i class="fas fa-key mr-2 text-primary-500"></i>
                         GitHub Personal Access Token
                     </label>
-                    <div class="relative">
+                    <div class="relative flex items-center">
                         <input 
                             type="password" 
                             id="token" 
@@ -375,10 +379,19 @@
                         >
                         <button 
                             id="toggleToken" 
-                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-500"
+                            class="absolute top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-500"
                             title="Hiển thị token"
+                            style="right: 20%;"
                         >
                             <i class="fas fa-eye"></i>
+                        </button>
+                        <button 
+                            id="getToken" 
+                            class="ml-2 px-4 py-2 bg-secondary-500 text-white rounded-lg hover:bg-secondary-600 transition duration-200 flex items-center"
+                            onclick="getGitHubToken()"
+                            title="Tạo hoặc lấy token từ GitHub"
+                        >
+                            <i class="fab fa-github mr-1"></i> Lấy Token
                         </button>
                     </div>
                     <p class="text-xs text-gray-500 mt-1">
@@ -724,6 +737,25 @@
             toggleTokenBtn.title = isTokenVisible ? 'Ẩn token' : 'Hiển thị token';
         }
 
+        function getGitHubToken() {
+            showToast('Chuyển hướng đến GitHub để tạo token. Vui lòng sao chép token và dán vào đây!');
+            window.open('https://github.com/settings/tokens/new?scopes=repo', '_blank');
+        }
+
+        function copySTK() {
+            const stkInput = document.getElementById('stk');
+            const copyMessage = document.getElementById('copyMessage');
+            
+            navigator.clipboard.writeText(stkInput.value).then(() => {
+                copyMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    copyMessage.classList.add('hidden');
+                }, 2000);
+            }).catch(err => {
+                console.error('Lỗi khi sao chép: ', err);
+            });
+        }
+
         // Input validation
         [tokenInput, repoInput].forEach(input => {
             input.addEventListener('input', checkFormCompletion);
@@ -732,24 +764,6 @@
         // Initial setup
         uploadBtn.disabled = true;
         AOS.init({ once: true, duration: 600 });
-        
-    </script>
-    <script>
-        function copySTK() {
-    const stkInput = document.getElementById('stk');
-    const copyMessage = document.getElementById('copyMessage');
-    
-    // Sao chép nội dung STK vào clipboard
-    navigator.clipboard.writeText(stkInput.value).then(() => {
-        // Hiển thị thông báo sao chép thành công
-        copyMessage.classList.remove('hidden');
-        setTimeout(() => {
-            copyMessage.classList.add('hidden');
-        }, 2000); // Ẩn thông báo sau 2 giây
-    }).catch(err => {
-        console.error('Lỗi khi sao chép: ', err);
-    });
-}
     </script>
 </body>
 </html>
