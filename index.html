@@ -3,54 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Tiêu đề tối ưu SEO -->
-    <title>GitHub Media Uploader - Tải Ảnh/Video Lên GitHub</title>
-    <!-- Meta description -->
+    <title>GitHub Media Uploader - Công cụ tải ảnh/video lên GitHub</title>
     <meta name="description" content="Tải ảnh và video lên GitHub dễ dàng với GitHub Media Uploader. Công cụ nhanh, tiện lợi, hỗ trợ JPG, PNG, GIF, MP4. Donate ủng hộ ngay!">
-    <!-- Meta keywords -->
     <meta name="keywords" content="GitHub Media Uploader, tải ảnh lên GitHub, tải video lên GitHub, công cụ GitHub, donate MBBank, khaicybers">
-    <!-- Meta author -->
     <meta name="author" content="khaicybers">
-    <!-- Meta robots -->
     <meta name="robots" content="index, follow">
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://khaicybers.github.io/product/">
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="GitHub Media Uploader - Tải Ảnh/Video Lên GitHub">
+    <meta property="og:title" content="GitHub Media Uploader - Công cụ tải ảnh/video lên GitHub">
     <meta property="og:description" content="Công cụ giúp bạn tải ảnh và video lên GitHub Repository nhanh chóng. Hỗ trợ JPG, PNG, GIF, MP4. Ủng hộ dự án qua MBBank!">
     <meta property="og:image" content="https://raw.githubusercontent.com/khaicybers/product/main/04-09-2025/2025-09-04T12-14-34-880Z_z6977106704336_5b6ad54ce2b57454b4cba1acf069709b.jpg">
     <meta property="og:url" content="https://khaicybers.github.io/product/">
     <meta property="og:type" content="website">
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GitHub Media Uploader - Tải Ảnh/Video Lên GitHub">
+    <meta name="twitter:title" content="GitHub Media Uploader - Công cụ tải ảnh/video lên GitHub">
     <meta name="twitter:description" content="Tải ảnh và video lên GitHub dễ dàng với công cụ của khaicybers. Hỗ trợ nhiều định dạng file và donate qua MBBank!">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/khaicybers/product/main/04-09-2025/2025-09-04T12-14-34-880Z_z6977106704336_5b6ad54ce2b57454b4cba1acf069709b.jpg">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/path/to/favicon.png">
-    <!-- Tailwind CSS -->
+    <link rel="icon" type="image/png" href="https://github.com/khaicybers/product/raw/main/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS (Animate on Scroll) -->
+    <script src="https://unpkg.com/feather-icons"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Feather Icons -->
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <!-- Anime.js -->
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <!-- Tailwind Config -->
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
                         },
                         secondary: {
                             500: '#10b981',
@@ -58,32 +42,50 @@
                         }
                     },
                     boxShadow: {
-                        'glow': '0 0 15px rgba(59, 130, 246, 0.5)',
+                        'glow': '0 0 15px rgba(99, 102, 241, 0.5)',
                     }
                 }
             }
         }
     </script>
-    <!-- CSS Styles -->
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Space Grotesk', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             padding: 1rem;
-            touch-action: manipulation;
         }
-        .container {
+        .container-wrapper {
             display: flex;
-            flex-direction: row;
-            gap: 1rem;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2rem;
             width: 100%;
             max-width: 80rem;
             margin: 0 auto;
         }
-        .intro-section, .uploader-section {
-            width: 50%;
+        .card-base {
+            background-color: #1f2937;
+            border: 1px solid #374151;
             border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: #d1d5db;
+        }
+        .card-base:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        .intro-section, .uploader-section {
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
         .file-upload {
@@ -91,21 +93,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 1.5rem;
-            border: 2px dashed #d1d5db;
-            border-radius: 0.5rem;
+            justify-content: center;
+            padding: 2.5rem;
+            border: 2px dashed #4b5563;
+            border-radius: 0.75rem;
             transition: all 0.3s ease;
-            background-color: #f9fafb;
+            background-color: #374151;
             cursor: pointer;
-            min-height: 8rem;
         }
         .file-upload:hover {
-            border-color: #3b82f6;
-            background-color: #f0f9ff;
+            border-color: #6366f1;
+            background-color: #3b4251;
         }
         .file-upload.active {
             border-color: #10b981;
-            background-color: #f0fdf4;
+            background-color: #37474f;
         }
         .file-upload input[type="file"] {
             position: absolute;
@@ -117,46 +119,46 @@
         .progress-bar {
             width: 100%;
             height: 6px;
-            background-color: #e5e7eb;
+            background-color: #4b5563;
             border-radius: 3px;
             overflow: hidden;
             margin-top: 0.5rem;
         }
         .progress {
             height: 100%;
-            background-color: #3b82f6;
+            background-color: #6366f1;
             transition: width 0.3s ease;
         }
         .file-info {
             display: flex;
             align-items: center;
             padding: 0.75rem;
-            background-color: #f3f4f6;
+            background-color: #2c3a4e;
             border-radius: 0.375rem;
+            border: 1px solid #374151;
         }
         .file-info i {
             margin-right: 0.5rem;
-            color: #6b7280;
+            color: #9ca3af;
         }
         .file-info span {
             font-size: 0.875rem;
-            color: #4b5563;
+            color: #d1d5db;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 80%;
         }
         .toast {
             position: fixed;
             top: 1rem;
             right: 1rem;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             background-color: #10b981;
             color: white;
-            border-radius: 0.375rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transform: translateX(150%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease-out;
             z-index: 50;
             max-width: 90%;
         }
@@ -174,289 +176,235 @@
             animation: spin 1s linear infinite;
         }
         .floating-shapes {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
             pointer-events: none;
+            z-index: -1;
         }
         .floating-shapes div {
             position: absolute;
             opacity: 0.1;
             border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #10b981);
+            background: linear-gradient(135deg, #6366f1, #10b981);
         }
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, 100px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        .floating-shapes div:nth-child(1) {
+            top: 10%; left: 15%; width: 100px; height: 100px; animation: float 15s infinite;
+        }
+        .floating-shapes div:nth-child(2) {
+            top: 40%; right: 10%; width: 150px; height: 150px; animation: float 20s infinite reverse;
+        }
+        .floating-shapes div:nth-child(3) {
+            bottom: 20%; left: 30%; width: 80px; height: 80px; animation: float 18s infinite;
+        }
+        .floating-shapes div:nth-child(4) {
+            bottom: 5%; right: 40%; width: 120px; height: 120px; animation: float 16s infinite reverse;
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
+            .main-container {
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
+            }
+            .container-wrapper {
+                padding: 1rem;
             }
             .intro-section, .uploader-section {
                 width: 100%;
-                max-width: none;
-            }
-            .intro-section {
-                padding: 1.5rem;
-            }
-            .uploader-section {
-                margin-bottom: 1.5rem;
-            }
-            .file-upload {
-                padding: 1rem;
-                min-height: 6rem;
-            }
-            input, button {
-                font-size: 1rem;
-                padding: 0.75rem;
-                touch-action: manipulation;
-            }
-            .file-item {
-                padding: 0.5rem;
-            }
-            .file-info {
-                padding: 0.5rem;
-                font-size: 0.875rem;
-            }
-            .toast {
-                top: 0.5rem;
-                right: 0.5rem;
-                font-size: 0.875rem;
-                padding: 0.75rem;
             }
             .floating-shapes div {
                 display: none; /* Hide floating shapes on mobile for performance */
             }
-            .intro-section h2 {
-                font-size: 1.5rem;
-            }
-            .intro-section p {
-                font-size: 0.875rem;
-            }
-            .uploader-section .p-6 {
-                padding: 1.5rem;
-            }
-            button, a {
-                min-height: 44px; /* Minimum tap target size */
-                min-width: 44px;
-            }
-        }
-        @media (max-width: 480px) {
-            body {
-                padding: 0.5rem;
-            }
-            .intro-section, .uploader-section {
-                border-radius: 0.75rem;
+            .file-upload {
+                padding: 2rem 1rem;
             }
             input, button {
-                font-size: 0.875rem;
-                padding: 0.5rem;
-            }
-            .file-upload h3 {
                 font-size: 1rem;
-            }
-            .file-upload p {
-                font-size: 0.75rem;
+                padding: 0.75rem;
             }
         }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center overflow-x-hidden">
     <div class="floating-shapes">
-        <div class="w-20 h-20 rounded-full top-10 left-10 opacity-5" style="animation: float 15s ease-in-out infinite;"></div>
-        <div class="w-32 h-32 rounded-xl top-40 right-5 opacity-5" style="animation: float 18s ease-in-out 2s infinite reverse;"></div>
-        <div class="w-16 h-16 hexagon bottom-20 left-20 opacity-5" style="animation: float 12s ease-in-out 3s infinite;"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
+    
     <div class="toast hidden"></div>
     
-    <div class="container">
-        <!-- Introduction Section -->
-        <div class="intro-section bg-white shadow-xl flex flex-col items-center transition-all duration-300 hover:shadow-2xl">
-            <div class="bg-gradient-to-r from-primary-500 to-primary-600 p-4 rounded-full mb-4">
-                <i class="fas fa-user-circle text-4xl text-white"></i>
+    <div class="container-wrapper">
+        <div class="main-container">
+            <div class="intro-section card-base p-6">
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mb-4 transition-transform duration-500 hover:scale-110">
+                        <i data-feather="user" class="text-white w-12 h-12"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white mb-2" data-aos="fade-up">Khair, Web Developer</h2>
+                    <p class="text-gray-400 text-sm mb-4" data-aos="fade-up" data-aos-delay="100">Một nhà phát triển web đam mê công nghệ và sáng tạo nội dung số.</p>
+                </div>
+                
+                <div class="mt-6 border-t border-gray-700 pt-6">
+                    <div class="text-center space-y-3" data-aos="fade-up" data-aos-delay="200">
+                        <p class="flex items-center justify-center text-gray-300">
+                            <i data-feather="mail" class="mr-2 text-primary-500"></i>
+                            khaicybers@gmail.com
+                        </p>
+                        <p class="flex items-center justify-center text-gray-300">
+                            <i data-feather="globe" class="mr-2 text-primary-500"></i>
+                            <a href="https://pwsdata.vn/" target="_blank" rel="noopener noreferrer">https://pwsdata.vn/</a>
+                        </p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-6" data-aos="fade-up" data-aos-delay="300">
+                        <a href="https://github.com/khaicybers" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="GitHub">
+                            <i data-feather="github" class="w-6 h-6"></i>
+                        </a>
+                        <a href="https://www.facebook.com/khaicybers" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Facebook">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" title="LinkedIn">
+                            <i data-feather="linkedin" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-8 border-t border-gray-700 pt-6" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-xl font-semibold text-center text-white mb-4">Ủng hộ dự án</h3>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="bg-gray-800 rounded-lg p-5 flex-1 border border-gray-700 transition-all duration-300 hover:border-primary-500">
+                            <div class="space-y-3">
+                                <label class="block text-sm font-medium text-gray-400 mb-1">Ngân hàng</label>
+                                <input type="text" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-transparent focus:outline-none" value="MBBank" readonly>
+                                
+                                <label class="block text-sm font-medium text-gray-400 mb-1">Số tài khoản</label>
+                                <div class="relative flex items-center">
+                                    <input type="text" id="stk" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white pr-12 focus:outline-none" value="432123456" readonly>
+                                    <button id="copySTK" class="absolute right-2 text-gray-400 hover:text-white" onclick="copyToClipboard('stk', 'Đã sao chép số tài khoản!')" title="Sao chép">
+                                        <i data-feather="copy" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 flex justify-center items-center">
+                            <img src="https://raw.githubusercontent.com/khaicybers/product/main/04-09-2025/2025-09-04T12-14-34-880Z_z6977106704336_5b6ad54ce2b57454b4cba1acf069709b.jpg" alt="Donate QR" class="w-full max-w-[150px] md:max-w-xs rounded-lg shadow-xl border-4 border-gray-700">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Giới thiệu</h2>
-            <p class="text-gray-600 text-center mb-4 px-4">Xin chào, tôi là khair, một nhà phát triển đam mê công nghệ và sáng tạo nội dung số.</p>
-            <div class="text-gray-600 space-y-2 px-4">
-                <p><i class="fas fa-briefcase mr-2 text-primary-500"></i> Nhà phát triển phần mềm</p>
-                <p><i class="fas fa-envelope mr-2 text-primary-500"></i> khaicybers@gmail.com</p>
-            </div>
-            <div class="mt-4 flex space-x-4 mb-4">
-                <a href="https://github.com/khaicybers" target="_blank" class="text-primary-500 hover:text-primary-600">
-                    <i class="fab fa-github text-2xl"></i>
-                </a>
-            </div>
-            <hr>
-            <h1><p>Donnate</p></h1>
-            <div class="container flex flex-row justify-center items-center text-center gap-6 p-6">
-                <!-- Phần copy STK (bên trái) -->
-                <div class="stk-copy bg-white rounded-lg shadow-md p-6 flex-1 max-w-md transition-all duration-300 hover:shadow-lg">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Thông tin donate</h3>
-                    <div class="space-y-3">
+
+            <div class="uploader-section card-base overflow-hidden" data-aos="fade-left">
+                <div class="bg-gradient-to-r from-primary-600 to-primary-500 p-6">
+                    <div class="flex items-center justify-between">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-center">
-                                <i class="fas fa-university mr-2 text-primary-500"></i>
-                                Ngân hàng
+                            <h1 class="text-2xl font-bold text-white flex items-center">
+                                <i data-feather="upload-cloud" class="mr-3 text-white"></i>
+                                GitHub Media Uploader
+                            </h1>
+                            <p class="text-primary-100 mt-1">Tải lên ảnh/video lên GitHub Repository</p>
+                        </div>
+                        <div class="bg-white/20 p-3 rounded-full">
+                            <i data-feather="github" class="text-white w-6 h-6"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="space-y-5">
+                        <div class="mb-4">
+                            <label for="token" class="block text-sm font-medium text-gray-300 mb-1 flex items-center">
+                                <i data-feather="key" class="mr-2 text-primary-500"></i>
+                                GitHub Personal Access Token
+                            </label>
+                            <div class="relative flex items-center">
+                                <input 
+                                    type="password" 
+                                    id="token" 
+                                    class="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800 text-white focus:ring-2 focus:ring-primary-500 focus:outline-none transition pr-12"
+                                    placeholder="Nhập token của bạn"
+                                >
+                                <button 
+                                    id="toggleToken" 
+                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                                    title="Hiển thị token"
+                                >
+                                    <i data-feather="eye" class="w-5 h-5"></i>
+                                </button>
+                                <a href="https://github.com/settings/tokens" target="_blank" class="ml-2 px-4 py-2 bg-secondary-500 text-white rounded-lg hover:bg-secondary-600 transition duration-200 flex items-center text-sm hidden md:flex" title="Tạo hoặc lấy token từ GitHub">
+                                    <i data-feather="external-link" class="mr-1 w-4 h-4"></i> Lấy Token
+                                </a>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">
+                                Tạo token tại <a href="https://github.com/settings/tokens" target="_blank" class="text-primary-500 hover:underline">GitHub Settings</a> với quyền "repo".
+                            </p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="repo" class="block text-sm font-medium text-gray-300 mb-1 flex items-center">
+                                <i data-feather="git-branch" class="mr-2 text-primary-500"></i>
+                                Repository (username/repo)
                             </label>
                             <input 
                                 type="text" 
-                                class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-center text-gray-700" 
-                                value="MBBank" 
-                                readonly
+                                id="repo" 
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800 text-white focus:ring-2 focus:ring-primary-500 focus:outline-none transition"
+                                value="khaicybers/product" 
+                                placeholder="Ví dụ: khaicybers/product"
                             >
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-center">
-                                <i class="fas fa-credit-card mr-2 text-primary-500"></i>
-                                Số tài khoản
-                            </label>
-                            <div class="relative flex items-center justify-center">
-                                <input 
-                                    type="text" 
-                                    id="stk" 
-                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-center text-gray-700" 
-                                    value="432123456" 
-                                    readonly
-                                >
-                                <button 
-                                    id="copySTK" 
-                                    class="ml-2 px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition duration-200 flex items-center"
-                                    onclick="copySTK()"
-                                    title="Sao chép STK"
-                                >
-                                    <i class="fas fa-copy mr-1"></i> Sao chép
-                                </button>
-                            </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-2 flex items-center">
+                            <i data-feather="image" class="mr-2 text-primary-500"></i>
+                            Chọn ảnh hoặc video
+                        </label>
+                        <div class="file-upload" id="dropArea">
+                            <i data-feather="plus-circle" class="text-4xl text-primary-500 mb-3"></i>
+                            <h3 class="text-base font-medium text-gray-300 mb-1">Kéo thả hoặc click để chọn nhiều file</h3>
+                            <p class="text-xs text-gray-500 mt-1">Hỗ trợ: JPG, PNG, GIF, MP4 (tối đa 25MB/file)</p>
+                            <input type="file" id="file" accept="image/*,video/*" multiple>
                         </div>
-                        <p id="copyMessage" class="text-sm text-green-600 mt-2 hidden">Đã sao chép số tài khoản!</p>
+                        <div id="fileList" class="mt-4 space-y-2"></div>
                     </div>
-                </div>
-                <!-- Ảnh donate (bên phải) -->
-                <div class="donate-image flex-1 flex justify-center">
-                    <img 
-                        src="https://raw.githubusercontent.com/khaicybers/product/main/04-09-2025/2025-09-04T12-14-34-880Z_z6977106704336_5b6ad54ce2b57454b4cba1acf069709b.jpg" 
-                        alt="Donate QR" 
-                        class="w-full max-w-xs rounded-lg shadow-md transition-all duration-300 hover:shadow-lg"
+                    
+                    <button 
+                        id="uploadBtn" 
+                        class="w-full py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-medium hover:from-primary-600 hover:to-primary-700 transition flex items-center justify-center shadow-md hover:shadow-lg"
+                        disabled
                     >
-                </div>
-            </div>
-        </div>
-
-        <!-- Uploader Section -->
-        <div class="uploader-section bg-white shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-primary-500 to-primary-600 p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h1 class="text-2xl font-bold flex items-center">
-                            <i class="fab fa-github mr-3"></i>
-                            GitHub Media Uploader
-                        </h1>
-                        <p class="text-primary-100 mt-1">Tải lên ảnh/video lên GitHub Repository</p>
-                    </div>
-                    <div class="bg-white/20 p-3 rounded-full">
-                        <i class="fas fa-cloud-upload-alt text-xl"></i>
+                        <span id="uploadText">Upload</span>
+                        <i data-feather="arrow-up" class="ml-2 hidden" id="uploadIcon"></i>
+                        <i class="fas fa-spinner animate-spin ml-2 hidden" id="uploadSpinner"></i>
+                    </button>
+                    
+                    <div id="result" class="mt-6 hidden" data-aos="fade-up">
+                        <div class="bg-gray-800 border border-green-500 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <i data-feather="check-circle" class="text-green-500 mr-2"></i>
+                                <h3 class="font-medium text-green-400">Upload thành công!</h3>
+                            </div>
+                            <div id="fileLinks" class="space-y-3"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Content -->
-            <div class="p-6">
-                <!-- GitHub Credentials -->
-                <div class="mb-6">
-                    <label for="token" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-                        <i class="fas fa-key mr-2 text-primary-500"></i>
-                        GitHub Personal Access Token
-                    </label>
-                    <div class="relative flex items-center">
-                        <input 
-                            type="password" 
-                            id="token" 
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition"
-                            placeholder="Nhập token của bạn"
-                        >
-                        <button 
-                            id="toggleToken" 
-                            class="absolute top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-500"
-                            title="Hiển thị token"
-                            style="right: 20%;"
-                        >
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button 
-                            id="getToken" 
-                            class="ml-2 px-4 py-2 bg-secondary-500 text-white rounded-lg hover:bg-secondary-600 transition duration-200 flex items-center"
-                            onclick="getGitHubToken()"
-                            title="Tạo hoặc lấy token từ GitHub"
-                        >
-                            <i class="fab fa-github mr-1"></i> Lấy Token
-                        </button>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-1">
-                        Tạo token tại <a href="https://github.com/settings/tokens" target="_blank" class="text-primary-500 hover:underline">GitHub Settings</a> với quyền "repo"
+                
+                <div class="bg-gray-800 px-6 py-3 border-t border-gray-700">
+                    <p class="text-xs text-gray-500 text-center">
+                        <i data-feather="info" class="inline-block w-3 h-3 mr-1"></i>
+                        File sẽ được lưu trong thư mục theo ngày (DD-MM-YYYY).
                     </p>
                 </div>
-                
-                <div class="mb-6">
-                    <label for="repo" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-                        <i class="fas fa-code-branch mr-2 text-primary-500"></i>
-                        Repository (username/repo)
-                    </label>
-                    <input 
-                        type="text" 
-                        id="repo" 
-                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition"
-                        value="khaicybers/product" 
-                        placeholder="Ví dụ: khaicybers/product"
-                    >
-                </div>
-                
-                <!-- File Upload Area -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-                        <i class="fas fa-file-image mr-2 text-primary-500"></i>
-                        Chọn ảnh hoặc video
-                    </label>
-                    <div class="file-upload" id="dropArea">
-                        <i class="fas fa-cloud-upload-alt text-4xl text-primary-500 mb-3"></i>
-                        <h3 class="text-lg font-medium text-gray-700 mb-1">Kéo thả hoặc click để chọn nhiều file</h3>
-                        <p class="text-xs text-gray-500 mt-3">Hỗ trợ: JPG, PNG, GIF, MP4 (tối đa 25MB/file)</p>
-                        <input type="file" id="file" accept="image/*,video/*" multiple>
-                    </div>
-                    <div id="fileList" class="mt-2 space-y-2"></div>
-                </div>
-                
-                <!-- Upload Button -->
-                <button 
-                    id="uploadBtn" 
-                    class="w-full py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-medium hover:from-primary-600 hover:to-primary-700 transition flex items-center justify-center shadow-md hover:shadow-lg"
-                    disabled
-                >
-                    <span id="uploadText">Upload</span>
-                    <i class="fas fa-arrow-up ml-2 hidden" id="uploadIcon"></i>
-                    <i class="fas fa-spinner animate-spin ml-2 hidden" id="uploadSpinner"></i>
-                </button>
-                
-                <!-- Result Section -->
-                <div id="result" class="mt-6 hidden">
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            <h3 class="font-medium text-green-800">Upload thành công!</h3>
-                        </div>
-                        <div id="fileLinks" class="space-y-2"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-                <p class="text-xs text-gray-500 text-center">
-                    <i class="fas fa-info-circle mr-1"></i>
-                    File sẽ được lưu trong thư mục theo ngày (DD-MM-YYYY)
-                </p>
             </div>
         </div>
     </div>
@@ -481,9 +429,15 @@
         let selectedFiles = [];
         let isTokenVisible = false;
 
+        // Initialize AOS and Feather Icons
+        AOS.init();
+        feather.replace();
+
         // Event Listeners
         fileInput.addEventListener('change', handleFileSelect);
         uploadBtn.addEventListener('click', uploadFile);
+        tokenInput.addEventListener('input', checkFormCompletion);
+        repoInput.addEventListener('input', checkFormCompletion);
         toggleTokenBtn.addEventListener('click', toggleTokenVisibility);
         
         // Drag and drop events
@@ -530,14 +484,12 @@
             fileList.innerHTML = ''; // Clear previous file list
 
             files.forEach(file => {
-                // Check file type
                 const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4'];
                 if (!validTypes.includes(file.type)) {
                     showToast(`File ${file.name} không được hỗ trợ!`, 'error');
                     return;
                 }
 
-                // Check file size (25MB max)
                 if (file.size > 25 * 1024 * 1024) {
                     showToast(`File ${file.name} quá lớn! Giới hạn là 25MB`, 'error');
                     return;
@@ -547,28 +499,34 @@
                 displayFile(file);
             });
 
-            // Enable upload button if all fields are filled
             checkFormCompletion();
         }
 
         function displayFile(file) {
             const fileItem = document.createElement('div');
-            fileItem.className = 'file-info flex items-center p-2 bg-gray-100 rounded-lg';
+            fileItem.className = 'file-info flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700';
             fileItem.innerHTML = `
-                <i class="fas fa-file mr-2 text-gray-500"></i>
-                <span class="flex-1 text-sm text-gray-600 truncate">${file.name}</span>
+                <i data-feather="${getFileIcon(file.type)}" class="mr-2 text-primary-500"></i>
+                <span class="flex-1 text-sm text-gray-300 truncate">${file.name}</span>
                 <span class="text-xs text-gray-500">${formatFileSize(file.size)}</span>
-                <button class="ml-2 text-red-500 hover:text-red-700 remove-file" data-name="${file.name}">
-                    <i class="fas fa-times"></i>
+                <button class="ml-2 text-red-500 hover:text-red-700 remove-file" data-name="${file.name}" title="Xóa file">
+                    <i data-feather="x" class="w-4 h-4"></i>
                 </button>
-                <div class="progress-bar hidden">
-                    <div class="progress" style="width: 0%"></div>
-                </div>
             `;
             fileList.appendChild(fileItem);
+            feather.replace();
 
             // Add remove file event
-            fileItem.querySelector('.remove-file').addEventListener('click', () => removeFile(file.name));
+            fileItem.querySelector('.remove-file').addEventListener('click', (e) => {
+                e.stopPropagation();
+                removeFile(file.name);
+            });
+        }
+
+        function getFileIcon(type) {
+            if (type.startsWith('image')) return 'image';
+            if (type.startsWith('video')) return 'video';
+            return 'file';
         }
 
         function removeFile(fileName) {
@@ -580,7 +538,6 @@
         function updateFileList() {
             fileList.innerHTML = '';
             selectedFiles.forEach(file => displayFile(file));
-            dropArea.classList.toggle('active', selectedFiles.length > 0);
         }
 
         function formatFileSize(bytes) {
@@ -609,45 +566,27 @@
             uploadText.textContent = 'Đang upload...';
             uploadIcon.classList.add('hidden');
             uploadSpinner.classList.remove('hidden');
-
-            fileLinks.innerHTML = ''; // Clear previous results
             resultDiv.classList.add('hidden');
+            fileLinks.innerHTML = '';
 
             try {
-                // Upload files sequentially
-                for (let i = 0; i < selectedFiles.length; i++) {
-                    const file = selectedFiles[i];
-                    const fileItem = fileList.children[i];
-                    const progressBar = fileItem.querySelector('.progress-bar');
-                    const progress = fileItem.querySelector('.progress');
-                    progressBar.classList.remove('hidden');
-
-                    // Simulate progress
-                    progress.style.width = '10%';
-
-                    // Read file as base64
+                for (const file of selectedFiles) {
                     const reader = new FileReader();
                     reader.readAsDataURL(file);
                     const content = await new Promise(resolve => {
                         reader.onload = () => resolve(reader.result.split(',')[1]);
                     });
 
-                    // Create folder name in DD-MM-YYYY format
                     const now = new Date();
                     const day = String(now.getDate()).padStart(2, '0');
                     const month = String(now.getMonth() + 1).padStart(2, '0');
                     const year = now.getFullYear();
                     const folderName = `${day}-${month}-${year}`;
-
-                    // Create unique filename with timestamp
+                    
                     const timestamp = now.toISOString().replace(/[:.]/g, '-');
                     const fileName = `${timestamp}_${file.name}`;
                     const filePath = `${folderName}/${fileName}`;
 
-                    // Update progress
-                    progress.style.width = '50%';
-
-                    // Send request to GitHub API
                     const response = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
                         method: 'PUT',
                         headers: {
@@ -655,7 +594,7 @@
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            message: `Upload ${fileName} to ${folderName}`,
+                            message: `feat(upload): add ${fileName}`,
                             content: content,
                         }),
                     });
@@ -667,33 +606,26 @@
 
                     const data = await response.json();
                     const fileUrl = data.content.download_url;
-                    const rawUrl = fileUrl.replace('/repos/', '/').replace('/contents/', '/raw/');
+                    const rawUrl = `https://raw.githubusercontent.com/${repo}/main/${folderName}/${fileName}`;
 
-                    // Update progress
-                    progress.style.width = '100%';
-
-                    // Display result
+                    // Display result for each file
                     const linkItem = document.createElement('div');
-                    linkItem.className = 'flex items-center space-x-2';
+                    linkItem.className = 'flex flex-wrap items-center space-x-2';
                     linkItem.innerHTML = `
-                        <input type="text" value="${fileUrl}" class="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 bg-gray-50" readonly>
-                        <button class="copy-btn px-4 py-2 bg-secondary-500 text-white rounded-r-lg hover:bg-secondary-600 flex items-center" data-url="${fileUrl}">
-                            <i class="fas fa-copy mr-1"></i> Copy
+                        <input type="text" value="${rawUrl}" class="flex-1 px-3 py-2 rounded-l-lg border border-gray-700 bg-gray-900 text-sm text-gray-300" readonly>
+                        <button class="copy-btn px-3 py-2 bg-secondary-500 text-white rounded-r-lg hover:bg-secondary-600 flex items-center text-sm" data-url="${rawUrl}">
+                            <i data-feather="copy" class="w-4 h-4 mr-1"></i> Copy
                         </button>
-                        <a href="${fileUrl}" target="_blank" class="px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 flex items-center">
-                            <i class="fas fa-external-link-alt mr-1"></i> Xem
-                        </a>
-                        <a href="${rawUrl}" target="_blank" class="px-3 py-1.5 text-sm bg-gray-50 text-gray-600 rounded hover:bg-gray-100 flex items-center">
-                            <i class="fas fa-code mr-1"></i> Raw
+                        <a href="${rawUrl}" target="_blank" class="px-3 py-2 text-sm bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 flex items-center" title="Xem file">
+                            <i data-feather="external-link" class="w-4 h-4"></i>
                         </a>
                     `;
                     fileLinks.appendChild(linkItem);
+                    feather.replace();
 
                     // Add copy event
-                    linkItem.querySelector('.copy-btn').addEventListener('click', (e) => {
-                        const url = e.target.dataset.url;
-                        navigator.clipboard.writeText(url);
-                        showToast(`Đã copy link ${file.name}!`);
+                    linkItem.querySelector('.copy-btn').addEventListener('click', () => {
+                        copyToClipboard(null, `Đã copy link ${file.name}!`, rawUrl);
                     });
                 }
 
@@ -702,7 +634,7 @@
                 uploadText.textContent = 'Upload thành công!';
                 uploadSpinner.classList.add('hidden');
                 uploadIcon.classList.remove('hidden');
-                uploadIcon.className = 'fas fa-check-circle ml-2';
+                uploadIcon.className = 'fas fa-check-circle ml-2 text-white';
                 showToast('Tất cả file đã upload thành công!');
                 resultDiv.scrollIntoView({ behavior: 'smooth' });
             } catch (error) {
@@ -713,6 +645,23 @@
                 uploadIcon.classList.remove('hidden');
                 uploadBtn.disabled = false;
             }
+        }
+        
+        function toggleTokenVisibility() {
+            isTokenVisible = !isTokenVisible;
+            tokenInput.type = isTokenVisible ? 'text' : 'password';
+            toggleTokenBtn.innerHTML = `<i data-feather="${isTokenVisible ? 'eye-off' : 'eye'}" class="w-5 h-5"></i>`;
+            feather.replace();
+        }
+
+        function copyToClipboard(elementId, message, text = null) {
+            const copyText = text || document.getElementById(elementId).value;
+            navigator.clipboard.writeText(copyText).then(() => {
+                showToast(message);
+            }).catch(err => {
+                showToast('Không thể sao chép!', 'error');
+                console.error('Copy error:', err);
+            });
         }
 
         function showToast(message, type = 'success') {
@@ -729,41 +678,6 @@
                 toast.classList.remove('show');
             }, 3000);
         }
-
-        function toggleTokenVisibility() {
-            isTokenVisible = !isTokenVisible;
-            tokenInput.type = isTokenVisible ? 'text' : 'password';
-            toggleTokenBtn.innerHTML = isTokenVisible ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
-            toggleTokenBtn.title = isTokenVisible ? 'Ẩn token' : 'Hiển thị token';
-        }
-
-        function getGitHubToken() {
-            showToast('Chuyển hướng đến GitHub để tạo token. Vui lòng sao chép token và dán vào đây!');
-            window.open('https://github.com/settings/tokens/new?scopes=repo', '_blank');
-        }
-
-        function copySTK() {
-            const stkInput = document.getElementById('stk');
-            const copyMessage = document.getElementById('copyMessage');
-            
-            navigator.clipboard.writeText(stkInput.value).then(() => {
-                copyMessage.classList.remove('hidden');
-                setTimeout(() => {
-                    copyMessage.classList.add('hidden');
-                }, 2000);
-            }).catch(err => {
-                console.error('Lỗi khi sao chép: ', err);
-            });
-        }
-
-        // Input validation
-        [tokenInput, repoInput].forEach(input => {
-            input.addEventListener('input', checkFormCompletion);
-        });
-
-        // Initial setup
-        uploadBtn.disabled = true;
-        AOS.init({ once: true, duration: 600 });
     </script>
 </body>
 </html>
