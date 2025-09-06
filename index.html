@@ -405,12 +405,6 @@
                         File sẽ được lưu trong thư mục theo ngày (DD-MM-YYYY).
                     </p>
                 </div>
-                <div class="intro-section card-base p-6">
-                <!-- Nội dung hiện có -->
-                <div id="trafficDisplay" class="text-center text-gray-300 mt-4">
-                    <p><i data-feather="users" class="mr-2"></i> Tổng lượt truy cập: <span id="visitCount">0</span></p>
-                </div>
-                </div>
             </div>
         </div>
     </div>
@@ -684,79 +678,6 @@
                 toast.classList.remove('show');
             }, 3000);
         }
-
-
-        async function trackVisit() {
-    const repo = repoInput.value.trim() || 'khaicybers/product'; // Mặc định repository
-    const token = tokenInput.value.trim(); // Lấy token từ input
-    const trafficFilePath = 'data/traffic.json'; // Đường dẫn tới tệp traffic.json
-    const visitCountSpan = document.getElementById('visitCount');
-
-    try {
-      // Lấy nội dung tệp traffic.json
-      const response = await fetch(`https://api.github.com/repos/${repo}/contents/${trafficFilePath}`, {
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json',
-        },
-      });
-
-      let visits = 0;
-      let sha = null;
-
-      if (response.ok) {
-        const data = await response.json();
-        visits = JSON.parse(atob(data.content)).visits || 0;
-        sha = data.sha; // Lấy SHA để cập nhật tệp
-      } else if (response.status === 404) {
-        // Nếu tệp không tồn tại, khởi tạo với visits = 0
-        visits = 0;
-      } else {
-        throw new Error('Không thể lấy dữ liệu lượt truy cập');
-      }
-
-      // Tăng số lượt truy cập
-      visits += 1;
-
-      // Hiển thị số lượt truy cập
-      visitCountSpan.textContent = visits;
-
-      // Cập nhật tệp traffic.json
-      const updatedContent = btoa(JSON.stringify({ visits }));
-      const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${trafficFilePath}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.github.v3+json',
-        },
-        body: JSON.stringify({
-          message: `Cập nhật lượt truy cập: ${visits}`,
-          content: updatedContent,
-          sha: sha, // Cần SHA để cập nhật tệp
-        }),
-      });
-
-      if (!updateResponse.ok) {
-        const error = await updateResponse.json();
-        throw new Error(`Lỗi khi cập nhật lượt truy cập: ${error.message}`);
-      }
-
-      showToast('Đã cập nhật lượt truy cập!');
-    } catch (error) {
-      console.error('Lỗi theo dõi lượt truy cập:', error);
-      showToast('Không thể cập nhật lượt truy cập!', 'error');
-      visitCountSpan.textContent = 'N/A';
-    }
-  }
-
-  // Gọi hàm khi trang tải
-  window.addEventListener('load', () => {
-    trackVisit();
-    // Gọi các hàm khởi tạo khác của bạn (AOS, feather, v.v.)
-    AOS.init();
-    feather.replace();
-  });
     </script>
 </body>
 </html>
